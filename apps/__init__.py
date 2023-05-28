@@ -1,17 +1,17 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
+# from flask_login import LoginManager
 from importlib import import_module
 
 db = SQLAlchemy()
-login_manager = LoginManager()
+# login_manager = LoginManager()
 
 def register_extensions(app):
     db.init_app(app)
-    login_manager.init_app(app)
+    # login_manager.init_app(app)
     
 def register_blueprints(app):
-    for module_name in ('home', 'authentication', 'tanaman'):
+    for module_name in ('pesantren', 'home'):
         module = import_module('apps.{}.routes'.format(module_name))
         app.register_blueprint(module.blueprint)
         

@@ -26,8 +26,4 @@ def get_pesantren_route(pesantren_id):
 
 @blueprint.route('/pesantren', methods=['GET'])
 def get_all_pesantren_route():
-    skip_browser_warning = request.headers.get('ngrok-skip-browser-warning')
-    if skip_browser_warning:
-        return get_all_pesantren()
-    else:
-        raise Exception("You must use ngrok to access this endpoint")
+    return get_all_pesantren()
