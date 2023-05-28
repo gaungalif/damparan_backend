@@ -1,0 +1,269 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Group Tanaman {% endblock %} 
+
+<!-- Element injected in the BODY element -->
+{% block body_class %} sidebar-mini {% endblock body_class %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/static/assets/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="/static/assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="/static/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="/static/assets/plugins/jqvmap/jqvmap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/static/assets/css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="/static/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="/static/assets/plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="/static/assets/plugins/summernote/summernote-bs4.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="/static/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="/static/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <style>
+    .table-row:hover {
+      background-color: #ddd;
+    }
+  </style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+  
+  <div class="content-wrapper">
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Dosing Tanaman</h1>
+            <p class="my-2 text-dark">Deskripsi singkat page</p>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item">Tanaman</a></li>
+              <li class="breadcrumb-item active">Dosing</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="row-12">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add">Tambah Dosing</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <table class="table" id="dosing">
+                <thead>
+                  <tr>
+                    <th style="width: 10px">ID</th>
+                    <th>Kategori Tanaman</th>
+                    <th>Hari</th>
+                    <th>ppm</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for dosing in data %}
+                  <tr class="table-row" data-toggle="modal" data-target="#modal-update-{{ dosing.0 }}" style="cursor: pointer;">
+                    <td>{{ dosing.0 }}</td>
+                    <td>{{ kategoriData[dosing.1].1 }}</td>
+                    <td>{{ dosing.2 }}</td>
+                    <td>{{ dosing.3 }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+
+      <div id="modal-container">
+        <div class="modal fade" id="modal-add">
+          <div class="modal-dialog">
+            <form class="modal-content bg-default" action="/addDosing" method="POST" enctype="multipart/form-data">
+              <div class="modal-header">
+                <h4 class="modal-title">Buat Dosing</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label>Kategori Tanaman</label>
+                    <select name="kategoriId" class="form-control">
+                      {% for kategori in kategoriData %}
+                      <option value="{{ kategori.0 }}">{{ kategori.1 }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Hari</label>
+                    <input type="text" class="form-control" name="hari" placeholder="Enter ...">
+                  </div>
+                  <div class="form-group">
+                    <label>PPM</label>
+                    <input type="text" class="form-control" name="ppm" placeholder="Enter ...">
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+              </div>
+            </form>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+
+        {% for dosing in data %}
+        <div class="modal fade" id="modal-update-{{ dosing.0 }}">
+          <div class="modal-dialog">
+            <form class="modal-content bg-default" action="/updateDosing" method="POST" enctype="multipart/form-data">
+              <div class="modal-header">
+                <h4 class="modal-title">Update Dosing</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label>Kategori Tanaman</label>
+                    <select name="kategoriId" class="form-control">
+                      {% for kategori in kategoriData %}
+                      <option value="{{ kategori.0 }}" {{ "selected" if (dosing.1 == kategori.0) }}>{{ kategori.1 }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Hari</label>
+                    <input type="text" class="form-control" name="hari" placeholder="Enter ..." value="{{ dosing.2 }}">
+                  </div>
+                  <div class="form-group">
+                    <label>PPM</label>
+                    <input type="text" class="form-control" name="ppm" placeholder="Enter ..." value="{{ dosing.3 }}">
+                  </div>
+                  <input type="hidden" name="dosingId" value="{{ dosing.0 }}">
+                </div>
+              </div>
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
+                <div class="row">
+                  <button type="button" class="btn btn-outline-danger mx-2" data-toggle="modal" data-target="#modal-delete-{{ dosing.0 }}"><span>Hapus</span></button>
+                  <button type="submit" class="btn bg-primary mx-2">Update</button>
+                </div>
+              </div>
+            </form>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <div class="modal fade" id="modal-delete-{{ dosing.0 }}">
+          <div class="modal-dialog">
+            <form class="modal-content bg-default" action="/deleteDosing" method="DELETE" enctype="multipart/form-data">
+              <div class="modal-header">
+                <h4 class="modal-title">Delete Dosing</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Anda yakin ingin menghapus entri ini?</p>
+                <input type="hidden" name="dosingId" value="{{ dosing.0 }}">
+              </div>
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-danger">Hapus</button>
+              </div>
+            </form>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        {% endfor %}
+      </div>
+    </section>
+    <!-- /.content -->
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+  <!-- jQuery -->
+  <script src="/static/assets/plugins/jquery/jquery.min.js"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="/static/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script>
+    $.widget.bridge('uibutton', $.ui.button)
+  </script>
+  <!-- Bootstrap 4 -->
+  <script src="/static/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- ChartJS -->
+  <script src="/static/assets/plugins/chart.js/Chart.min.js"></script>
+  <!-- Sparkline -->
+  <script src="/static/assets/plugins/sparklines/sparkline.js"></script>
+  <!-- JQVMap -->
+  <script src="/static/assets/plugins/jqvmap/jquery.vmap.min.js"></script>
+  <script src="/static/assets/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+  <!-- jQuery Knob Chart -->
+  <script src="/static/assets/plugins/jquery-knob/jquery.knob.min.js"></script>
+  <!-- daterangepicker -->
+  <script src="/static/assets/plugins/moment/moment.min.js"></script>
+  <script src="/static/assets/plugins/daterangepicker/daterangepicker.js"></script>
+  <!-- Tempusdominus Bootstrap 4 -->
+  <script src="/static/assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+  <!-- Summernote -->
+  <script src="/static/assets/plugins/summernote/summernote-bs4.min.js"></script>
+  <!-- overlayScrollbars -->
+  <script src="/static/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="/static/assets/js/adminlte.js"></script>
+  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+  <script src="/static/assets/js/pages/dashboard.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="/static/assets/js/demo.js"></script>
+
+  <!-- DataTables -->
+  <script src="/static/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="/static/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="/static/assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="/static/assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
+  <script>
+    $(function () {
+      $("#dosing").DataTable({
+        "responsive": true,
+        "autoWidth": false
+      });
+    });
+  </script>
+
+{% endblock javascripts %}

@@ -1,0 +1,362 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Home {% endblock %} 
+
+<!-- Element injected in the BODY element -->
+{% block body_class %} sidebar-mini {% endblock body_class %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/static/assets/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="/static/assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="/static/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="/static/assets/plugins/jqvmap/jqvmap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/static/assets/css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="/static/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="/static/assets/plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="/static/assets/plugins/summernote/summernote-bs4.min.css">
+
+{% endblock stylesheets %}
+
+{% block content %}
+  
+  <div class="content-wrapper">
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Home</h1>
+            <p class="my-2 text-dark">Hai, Selamat Datang <span class="font-weight-bold">Custodian</span> Nama</p>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item">Home</a></li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-lg-4 col-12">
+            <!-- small box -->
+            <div class="small-box bg-blue">
+              <div class="inner px-3 py-2">
+                <h5 class="text-light mb-3">Jumlah Transaksi</h4>
+                <div class="row">
+                  <h6 class="col m-0">Customer</h6>
+                  <p class="col-auto m-0">3</p>
+                </div>
+                <div class="row">
+                  <h6 class="col m-0">Greenhouse</h6>
+                  <p class="col-auto m-0">4</p>
+                </div>
+                <div class="row">
+                  <h6 class="col m-0">Mesin</h6>
+                  <p class="col-auto m-0">4</p>
+                </div>
+                <div class="row">
+                  <h6 class="col m-0">Subscribe</h6>
+                  <p class="col-auto m-0">4</p>
+                </div>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-4 col-12">
+            <!-- small box -->
+            <div class="small-box bg-blue">
+              <div class="inner px-3 py-2">
+                <h5 class="text-light mb-3">Kondisi Mesin</h4>
+                <div class="row">
+                  <h6 class="col m-0">Online</h6>
+                  <p class="col-auto m-0">3</p>
+                </div>
+                <div class="row">
+                  <h6 class="col m-0">Offline</h6>
+                  <p class="col-auto m-0">4</p>
+                </div>
+                <div class="row">
+                  <h6 class="col m-0">Breakdown</h6>
+                  <p class="col-auto m-0">4</p>
+                </div>
+                <div class="row">
+                  <h6 class="col m-0">Idle</h6>
+                  <p class="col-auto m-0">4</p>
+                </div>
+                <div class="row">
+                  <h6 class="col m-0">Need Activation</h6>
+                  <p class="col-auto m-0">4</p>
+                </div>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-4 col-12">
+            <!-- small box -->
+            <div class="small-box bg-blue">
+              <div class="inner px-3 py-2">
+                <h5 class="text-light mb-3">Validasi Mesin</h4>
+                <div class="row">
+                  <h6 class="col m-0">Open</h6>
+                  <p class="col-auto m-0">3</p>
+                </div>
+                <div class="row">
+                  <h6 class="col m-0">Validate</h6>
+                  <p class="col-auto m-0">4</p>
+                </div>
+                <div class="row">
+                  <h6 class="col m-0">Reject</h6>
+                  <p class="col-auto m-0">4</p>
+                </div>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+        <!-- /.row -->
+        <!-- Main row -->
+
+        <div class="row">
+          <div class="col-lg-6 col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-chart-pie mr-1"></i>
+                  Menu Subscribe
+                </h3>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    Bayam
+                  </div>
+                  <div class="col-auto">
+                    Rp300.000
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    Kangkung
+                  </div>
+                  <div class="col-auto">
+                    Rp300.000
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    Sawi
+                  </div>
+                  <div class="col-auto">
+                    Rp300.000
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    Selada
+                  </div>
+                  <div class="col-auto">
+                    Rp300.000
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    Kailan
+                  </div>
+                  <div class="col-auto">
+                    Rp300.000
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    Bayam
+                  </div>
+                  <div class="col-auto">
+                    Rp300.000
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    Kangkung
+                  </div>
+                  <div class="col-auto">
+                    Rp300.000
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    Sawi
+                  </div>
+                  <div class="col-auto">
+                    Rp300.000
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    Selada
+                  </div>
+                  <div class="col-auto">
+                    Rp300.000
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    Kailan
+                  </div>
+                  <div class="col-auto">
+                    Rp300.000
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-12">
+            <div class="card bg-cyan">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-chart-pie mr-1"></i>
+                  Status Subscribe
+                </h3>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    Instock
+                  </div>
+                  <div class="col-auto">
+                    3
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    Finished
+                  </div>
+                  <div class="col-auto">
+                    4
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    Reject
+                  </div>
+                  <div class="col-auto">
+                    2
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card bg-cyan">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-chart-pie mr-1"></i>
+                  Approval Subscribe
+                </h3>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    Approve
+                  </div>
+                  <div class="col-auto">
+                    3
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    Reject
+                  </div>
+                  <div class="col-auto">
+                    4
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    Open
+                  </div>
+                  <div class="col-auto">
+                    2
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    Cancel
+                  </div>
+                  <div class="col-auto">
+                    1
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.row (main row) -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+  <!-- jQuery -->
+  <script src="/static/assets/plugins/jquery/jquery.min.js"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="/static/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script>
+    $.widget.bridge('uibutton', $.ui.button)
+  </script>
+  <!-- Bootstrap 4 -->
+  <script src="/static/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- ChartJS -->
+  <script src="/static/assets/plugins/chart.js/Chart.min.js"></script>
+  <!-- Sparkline -->
+  <script src="/static/assets/plugins/sparklines/sparkline.js"></script>
+  <!-- JQVMap -->
+  <script src="/static/assets/plugins/jqvmap/jquery.vmap.min.js"></script>
+  <script src="/static/assets/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+  <!-- jQuery Knob Chart -->
+  <script src="/static/assets/plugins/jquery-knob/jquery.knob.min.js"></script>
+  <!-- daterangepicker -->
+  <script src="/static/assets/plugins/moment/moment.min.js"></script>
+  <script src="/static/assets/plugins/daterangepicker/daterangepicker.js"></script>
+  <!-- Tempusdominus Bootstrap 4 -->
+  <script src="/static/assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+  <!-- Summernote -->
+  <script src="/static/assets/plugins/summernote/summernote-bs4.min.js"></script>
+  <!-- overlayScrollbars -->
+  <script src="/static/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="/static/assets/js/adminlte.js"></script>
+  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+  <script src="/static/assets/js/pages/dashboard.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="/static/assets/js/demo.js"></script>
+
+{% endblock javascripts %}
