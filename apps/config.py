@@ -8,7 +8,7 @@ class Config(object):
     basedir = os.path.abspath(os.path.dirname(__file__))
     
     # This will create a file in <app> FOLDER
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db.sqlite3')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'damparan-db.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False 
 
     # Assets Management
