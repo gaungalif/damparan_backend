@@ -1,3 +1,4 @@
+from flask_cors import CORS
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 # from flask_login import LoginManager
@@ -26,6 +27,8 @@ def configure_database(app):
         
 def create_app(config_filename):
     app = Flask(__name__)
+    CORS(app, resources={r"*": {"origins": "true"}})
+
     app.config.from_object(config_filename)
     
     register_extensions(app)

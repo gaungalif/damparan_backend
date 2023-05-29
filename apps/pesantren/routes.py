@@ -14,14 +14,14 @@ def add_pesantren_route():
     data = request.json
     return add_pesantren(data)
 
-@blueprint.route('/pesantren/<int:pesantren_id>', methods=['GET','PUT','DELETE',])
+@blueprint.route('/pesantren/<int:pesantren_id>', methods=['GET','POST','DELETE'])
 def get_pesantren_route(pesantren_id):
     if request.method == 'GET':
         return get_pesantren(pesantren_id)
-    elif request.method == 'PUT':
+    elif request.method == 'POST':
         data = request.form
         return update_pesantren(pesantren_id, data)
-    else:
+    elif request.method == 'DELETE':
         return delete_pesantren(pesantren_id)
 
 @blueprint.route('/pesantren', methods=['GET'])

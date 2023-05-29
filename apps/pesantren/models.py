@@ -18,12 +18,12 @@ class Pesantren(db.Model):
     yayasan = db.Column(db.String(100))
     pendiri = db.Column(db.String(100))
     pengasuh = db.Column(db.String(100))
-    alamat = db.relationship('AlamatPesantren', backref='Pesantren', uselist=False)
-    media = db.relationship('Media', backref='Pesantren', uselist=False)
-    keilmuan = db.relationship('KeilmuanPesantren', backref='Pesantren', uselist=False)
-    lembaga_pendidikan = db.relationship('LembagaPendidikanPesantren', backref='Pesantren', uselist=False)
-    informasi_tambahan = db.relationship('InformasiTambahan', backref='Pesantren', uselist=False)
-    foto_pesantren = db.relationship('FotoPesantren', backref='Pesantren')
+    alamat = db.relationship('AlamatPesantren', backref='pesantren', uselist=False)
+    media = db.relationship('Media', backref='pesantren', uselist=False)
+    keilmuan = db.relationship('KeilmuanPesantren', backref='pesantren', uselist=False)
+    lembaga_pendidikan = db.relationship('LembagaPendidikanPesantren', backref='pesantren', uselist=False)
+    informasi_tambahan = db.relationship('InformasiTambahan', backref='pesantren', uselist=False)
+    foto_pesantren = db.relationship('FotoPesantren', backref='pesantren')
 
 # Tabel "Alamat Pesantren"
 class AlamatPesantren(db.Model):

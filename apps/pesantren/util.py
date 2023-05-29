@@ -130,11 +130,11 @@ def get_all_pesantren():
         # Membuat dictionary dengan data yang diperlukan
         pesantren_data = {
             'id': pesantren.id,
-            'Nama Pondok Pesantren': nama,
-            'Yayasan/Pengasuh': yayasan_pengasuh,
-            'Alamat': alamat.alamat + ', ' + alamat.kecamatan + ', ' + alamat.kabupaten,
+            'pesantren': nama,
+            'yayasan_pengasuh': yayasan_pengasuh,
+            'alamat': alamat.alamat + ', ' + alamat.kecamatan + ', ' + alamat.kabupaten,
             # 'Fasilitas': fasilitas,
-            'Foto': foto
+            'foto': foto
         }
         data.append(pesantren_data)
 
@@ -158,11 +158,11 @@ def get_pesantren(pesantren_id):
     # Membuat dictionary dengan data yang diperlukan
     data = {
         'id': pesantren.id,
-        'Nama Pondok Pesantren': nama,
-        'Yayasan/Pengasuh': yayasan_pengasuh,
-        'Alamat': alamat.alamat + ', ' + alamat.kecamatan + ', ' + alamat.kabupaten,
+        'pesantren': nama,
+        'yayasan_pengasuh': yayasan_pengasuh,
+        'alamat': alamat.alamat + ', ' + alamat.kecamatan + ', ' + alamat.kabupaten,
         # 'Fasilitas': fasilitas,
-        'Foto': foto
+        'foto': foto
     }
 
     return jsonify(data), 200
@@ -181,10 +181,10 @@ def detail_pesantren(pesantren_id):
     # Mengambil lembaga pendidikan pesantren
     lembaga_pendidikan_pesantren = LembagaPendidikanPesantren.query.filter_by(pesantren_id=pesantren.id).first()
     lembaga_pendidikan = {
-        'Lembaga Formal': lembaga_pendidikan_pesantren.lembFormal,
-        'Lembaga Non-Formal': lembaga_pendidikan_pesantren.lembNonFormal,
-        'Pendidikan Formal': lembaga_pendidikan_pesantren.pendFormal,
-        'Lain-lain': lembaga_pendidikan_pesantren.lainLain
+        'lembFormal': lembaga_pendidikan_pesantren.lembFormal,
+        'lembNonFormal': lembaga_pendidikan_pesantren.lembNonFormal,
+        'pendFormal': lembaga_pendidikan_pesantren.pendFormal,
+        'lainLain': lembaga_pendidikan_pesantren.lainLain
     }
 
     # Mengambil foto pesantren
@@ -193,12 +193,12 @@ def detail_pesantren(pesantren_id):
 
     # Membuat dictionary dengan data yang diperlukan
     data = {
-        'Nama Pondok Pesantren': nama,
-        'Yayasan/Pengasuh': yayasan_pengasuh,
-        'Lembaga Pendidikan': lembaga_pendidikan,
-        'Alamat': alamat.alamat + ', ' + alamat.kecamatan + ', ' + alamat.kabupaten,
+        'pesantren': nama,
+        'yayasan_pengasuh': yayasan_pengasuh,
+        'pendidikan': lembaga_pendidikan,
+        'alamat': alamat.alamat + ', ' + alamat.kecamatan + ', ' + alamat.kabupaten,
         # 'Fasilitas': fasilitas,
-        'Foto': foto
+        'foto': foto
     }
 
     return jsonify(data), 200
