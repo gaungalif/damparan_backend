@@ -7,16 +7,18 @@ from apps.home import blueprint
 from flask import render_template, request
 # from flask_login import login_required
 from jinja2 import TemplateNotFound
-
+from flask_cors import cross_origin
 
 @blueprint.route('/index')
+@cross_origin(origin='*',headers=['Content-Type','Authorization'])
 # @login_required
 def index():
     print(request.path.split('/'))
-    return render_template('home/index.html', segment='index')
+    return render_template('templates/home/index.html', segment='index')
 
 
 @blueprint.route('/<template>')
+@cross_origin(origin='*',headers=['Content-Type','Authorization'])
 # @login_required
 def route_template(template):
     try:
@@ -30,13 +32,13 @@ def route_template(template):
 
 
         # Serve the file (if exists) from app/templates/home/FILE.html
-        return render_template("home/" + template, segment=segment)
+        return render_template("templates/home/" + template, segment=segment)
 
     except TemplateNotFound:
-        return render_template('home/page-404.html'), 404
+        return render_template('templates/home/page-404.html'), 404
 
     except:
-        return render_template('home/page-500.html'), 500
+        return render_template('templates/home/page-500.html'), 500
 
 
 # Helper - Extract current page name from request

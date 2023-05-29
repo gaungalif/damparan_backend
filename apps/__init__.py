@@ -27,7 +27,8 @@ def configure_database(app):
         
 def create_app(config_filename):
     app = Flask(__name__)
-    CORS(app, resources={r"*": {"origins": "true"}})
+    CORS(app, resources={r"*": {"origins": "*"}})
+    app.config['CORS_HEADERS'] = 'Content-Type'
 
     app.config.from_object(config_filename)
     

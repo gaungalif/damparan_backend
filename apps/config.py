@@ -10,7 +10,7 @@ class Config(object):
     # This will create a file in <app> FOLDER
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'damparan-db.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False 
-
+    CORS_HEADERS = 'Content-Type'
     # Assets Management
     ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets')    
 
