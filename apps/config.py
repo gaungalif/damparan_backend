@@ -8,7 +8,7 @@ class Config(object):
     basedir = os.path.abspath(os.path.dirname(__file__))
     
     # This will create a file in <app> FOLDER
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'damparan-db.db')
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://damparan:damparan@/percobaan?unix_socket=/cloudsql/careful-griffin-388107:asia-southeast2:damparan-db'
     # SQLALCHEMY_TRACK_MODIFICATIONS = False 
     CORS_HEADERS = 'Content-Type'
     # Assets Management
