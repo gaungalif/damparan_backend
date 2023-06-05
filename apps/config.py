@@ -9,11 +9,24 @@ class Config(object):
     
     # This will create a file in <app> FOLDER
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'damparan-db.db')
-    SQLALCHEMY_TRACK_MODIFICATIONS = False 
+    # SQLALCHEMY_TRACK_MODIFICATIONS = False 
     CORS_HEADERS = 'Content-Type'
     # Assets Management
     ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets')    
 
+    
+    # HOST = str(os.environ.get("DB_HOST"))
+    # DATABASE = str(os.environ.get("DB_DATABASE"))
+    # USERNAME = str(os.environ.get("DB_USERNAME"))
+    # PASSWORD = str(os.environ.get("DB_PASSWORD"))
+    # SECRET_KEY  = str(os.environ.get("SECRET_KEY"))
+    CORS_HEADERS = 'Content-Type'
+    # JWT_SECRET_KEY = str(os.environ.get("JWT_SECRET"))
+    
+    # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://' + USERNAME + ':' + PASSWORD + '@' + HOST + '/' + DATABASE
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_RECORD_QUERIES = True
+    
 class ProductionConfig(Config):
     DEBUG = False
     TESTING = False
