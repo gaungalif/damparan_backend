@@ -8,8 +8,7 @@ class Config(object):
     basedir = os.path.abspath(os.path.dirname(__file__))
     
     # This will create a file in <app> FOLDER
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://damparan:damparan@/percobaan?unix_socket=/cloudsql/careful-griffin-388107:asia-southeast2:damparan-db'
-    # SQLALCHEMY_TRACK_MODIFICATIONS = False 
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://damparan:damparan@/percobaan?unix_socket=/cloudsql/careful-griffin-388107:asia-southeast2:damparan-db' 
     CORS_HEADERS = 'Content-Type'
     # Assets Management
     ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets')    
@@ -22,6 +21,7 @@ class Config(object):
     # SECRET_KEY  = str(os.environ.get("SECRET_KEY"))
     CORS_HEADERS = 'Content-Type'
     # JWT_SECRET_KEY = str(os.environ.get("JWT_SECRET"))
+    UPLOADED_PHOTOS_DEST = os.path.join(basedir, 'upload')
     
     # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://' + USERNAME + ':' + PASSWORD + '@' + HOST + '/' + DATABASE
     SQLALCHEMY_TRACK_MODIFICATIONS = False

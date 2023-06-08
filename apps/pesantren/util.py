@@ -6,49 +6,121 @@ from apps import config, db
 
 from flask import jsonify
 
+# def add_pesantren(data):
+#     # Ambil data dari permintaan POST
+#     pesantren_data = data
+
+#     # Buat objek Pesantren
+#     pesantren = Pesantren(pesantren=pesantren_data['pesantren'],
+#                             yayasan=pesantren_data['yayasan'],
+#                             pendiri=pesantren_data['pendiri'],
+#                             pengasuh=pesantren_data['pengasuh'])
+
+#     # Buat objek AlamatPesantren
+#     alamat_pesantren = AlamatPesantren(alamat=pesantren_data['alamat']['alamat'],
+#                                         kecamatan=pesantren_data['alamat']['kecamatan'],
+#                                         kabupaten=pesantren_data['alamat']['kabupaten'])
+
+#     # Tambahkan alamat_pesantren ke pesantren
+#     pesantren.alamat = alamat_pesantren
+
+#     # Buat objek KeilmuanPesantren
+#     keilmuan_pesantren = KeilmuanPesantren(sanad=pesantren_data['keilmuan']['sanad'],
+#                                             talim=pesantren_data['keilmuan']['talim'],
+#                                             pendidikan=pesantren_data['keilmuan']['pendidikan'])
+#     pesantren.keilmuan = keilmuan_pesantren
+#     # Buat objek LembagaPendidikanPesantren
+#     lembaga_pendidikan_pesantren = LembagaPendidikanPesantren(lembFormal=pesantren_data['lembaga_pendidikan']['lembFormal'],
+#                                                                 lembNonFormal=pesantren_data['lembaga_pendidikan']['lembNonFormal'],
+#                                                                 pendFormal=pesantren_data['lembaga_pendidikan']['pendFormal'],
+#                                                                 lainLain=pesantren_data['lembaga_pendidikan']['lainLain'])
+
+#     # Tambahkan keilmuan_pesantren dan lembaga_pendidikan_pesantren ke pesantren
+#     pesantren.lembaga_pendidikan = lembaga_pendidikan_pesantren
+#     # Buat objek InformasiTambahan
+#     informasi_tambahan_pesantren = InformasiTambahan(usaha=pesantren_data['informasi_tambahan']['usaha'],
+#                                             gmaps=pesantren_data['informasi_tambahan']['gmaps'])
+
+#     pesantren.informasi_tambahan = informasi_tambahan_pesantren
+#     # Buat objek Media
+#     media = Media(instagram=pesantren_data['media']['instagram'],
+#                     facebook=pesantren_data['media']['facebook'],
+#                     twitter=pesantren_data['media']['twitter'],
+#                     website=pesantren_data['media']['website'])
+
+#     # Tambahkan informasi_tambahan dan media ke pesantren
+#     pesantren.media = media
+
+#     # Commit perubahan ke database
+#     db.session.add(pesantren)
+#     db.session.commit()
+
+#     return jsonify({'message': 'Pesantren added successfully'}), 200
+
 def add_pesantren(data):
     # Ambil data dari permintaan POST
     pesantren_data = data
 
     # Buat objek Pesantren
-    pesantren = Pesantren(pesantren=pesantren_data['pesantren'],
-                            yayasan=pesantren_data['yayasan'],
-                            pendiri=pesantren_data['pendiri'],
-                            pengasuh=pesantren_data['pengasuh'])
+    pesantren = Pesantren(
+        pesantren=pesantren_data['pesantren'],
+        yayasan=pesantren_data['yayasan'],
+        pendiri=pesantren_data['pendiri']
+    )
+
+    # Tambahkan pengasuh ke pesantren
+    pengasuh = [Pengasuh(nama=nama) for nama in pesantren_data['pengasuh']]
+    pesantren.pengasuh = pengasuh
 
     # Buat objek AlamatPesantren
-    alamat_pesantren = AlamatPesantren(alamat=pesantren_data['alamat']['alamat'],
-                                        kecamatan=pesantren_data['alamat']['kecamatan'],
-                                        kabupaten=pesantren_data['alamat']['kabupaten'])
+    alamat_pesantren = AlamatPesantren(
+        alamat=pesantren_data['alamat']['alamat'],
+        kecamatan=pesantren_data['alamat']['kecamatan'],
+        kabupaten=pesantren_data['alamat']['kabupaten']
+    )
 
     # Tambahkan alamat_pesantren ke pesantren
     pesantren.alamat = alamat_pesantren
 
     # Buat objek KeilmuanPesantren
-    keilmuan_pesantren = KeilmuanPesantren(sanad=pesantren_data['keilmuan']['sanad'],
-                                            talim=pesantren_data['keilmuan']['talim'],
-                                            pendidikan=pesantren_data['keilmuan']['pendidikan'])
+    keilmuan_pesantren = KeilmuanPesantren(
+        sanad=pesantren_data['keilmuan']['sanad'],
+        talim=[KeilmuanPesantren(talim=nama) for nama in pesantren_data['keilmuan']['talim']],
+        pendidikan=[KeilmuanPesantren(pendidikan=nama) for nama in pesantren_data['keilmuan']['pendidikan']]
+    )
     pesantren.keilmuan = keilmuan_pesantren
+
     # Buat objek LembagaPendidikanPesantren
-    lembaga_pendidikan_pesantren = LembagaPendidikanPesantren(lembFormal=pesantren_data['lembaga_pendidikan']['lembFormal'],
-                                                                lembNonFormal=pesantren_data['lembaga_pendidikan']['lembNonFormal'],
-                                                                pendFormal=pesantren_data['lembaga_pendidikan']['pendFormal'],
-                                                                lainLain=pesantren_data['lembaga_pendidikan']['lainLain'])
+    lembaga_pendidikan_pesantren = LembagaPendidikanPesantren(
+        lembFormal=[LembagaPendidikanPesantren(lembFormal=nama) for nama in pesantren_data['lembaga_pendidikan']['lembFormal']],
+        lembNonFormal=[LembagaPendidikanPesantren(lembNonFormal=nama) for nama in pesantren_data['lembaga_pendidikan']['lembNonFormal']],
+        pendFormal=[LembagaPendidikanPesantren(pendFormal=nama) for nama in pesantren_data['lembaga_pendidikan']['pendFormal']],
+        lainLain=[LembagaPendidikanPesantren(lainLain=nama) for nama in pesantren_data['lembaga_pendidikan']['lainLain']]
+    )
 
-    # Tambahkan keilmuan_pesantren dan lembaga_pendidikan_pesantren ke pesantren
+    # Tambahkan lembaga_pendidikan_pesantren ke pesantren
     pesantren.lembaga_pendidikan = lembaga_pendidikan_pesantren
+
     # Buat objek InformasiTambahan
-    informasi_tambahan_pesantren = InformasiTambahan(usaha=pesantren_data['informasi_tambahan']['usaha'],
-                                            gmaps=pesantren_data['informasi_tambahan']['gmaps'])
-
+    informasi_tambahan_pesantren = InformasiTambahan(
+        gmaps=pesantren_data['informasi_tambahan']['gmaps'],
+    )
+    
+    # Tambahkan informasi_tambahan_pesantren ke pesantren
     pesantren.informasi_tambahan = informasi_tambahan_pesantren
-    # Buat objek Media
-    media = Media(instagram=pesantren_data['media']['instagram'],
-                    facebook=pesantren_data['media']['facebook'],
-                    twitter=pesantren_data['media']['twitter'],
-                    website=pesantren_data['media']['website'])
 
-    # Tambahkan informasi_tambahan dan media ke pesantren
+    usaha = [Usaha(nama=nama) for nama in pesantren_data['informasi_tambahan']['usaha']]
+    
+    pesantren.usaha = usaha
+    # Buat objek Media
+    media = Media(
+        instagram=pesantren_data['media']['instagram'],
+        facebook=pesantren_data['media']['facebook'],
+        twitter=pesantren_data['media']['twitter'],
+        website=pesantren_data['media']['website']
+    )
+
+    # Tambahkan media ke pesantren
     pesantren.media = media
 
     # Commit perubahan ke database
@@ -56,7 +128,7 @@ def add_pesantren(data):
     db.session.commit()
 
     return jsonify({'message': 'Pesantren added successfully'}), 200
-   
+
 def update_pesantren(pesantren_id, data):
     pesantren = Pesantren.query.get(pesantren_id)
     if not pesantren:
