@@ -12,8 +12,12 @@ from apps import uploadconfig
 from apps import response
 from apps.config import Config
 from apps.pesantren import blueprint
-from apps.pesantren.util import *
+# from apps.pesantren.util import *
 from werkzeug.utils import secure_filename
+from apps.pesantren.models import *
+from apps import db
+
+from flask import jsonify
 
 @blueprint.route('/pesantren/<int:pesantren_id>', methods=['GET', 'PUT', 'DELETE'])
 @cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
@@ -132,36 +136,51 @@ def add_pesantren():
 def upload_fotos():
     pesantren_id = request.form.get('pesantren_id')
     pesantren = Pesantren.query.get(pesantren_id)
-    pesantren_name = pesantren.pesantren
-    if 'foto' not in request.files:
+    if 'foto' not in request.form:
         return jsonify({'message': 'Foto tidak tersedia'}), 400
 
-    docs = request.files['foto']
+    docs = request.form.get('foto')
+    pesantren.foto_filename = docs
+    db.session.commit()
+    return response.success(
+        {
+            'foto': docs,
+            'pesantren_id': pesantren_id
+            
+        }, 
+        "Sukses mengupload file"
+    )
+    # pesantren_name = pesantren.pesantren
+    # if 'foto' not in request.files:
+    #     return jsonify({'message': 'Foto tidak tersedia'}), 400
 
-    if docs.filename == '':
-        return jsonify({'message': 'Foto tidak tersedia'}), 400
-    if docs and uploadconfig.allowed_file(docs.filename):
-        # filename = secure_filename(docs.filename)
-        renamefile = pesantren_name+'.jpg'
+    # docs = request.files['foto']
 
-        docs.save(os.path.join(Config.UPLOADED_PHOTOS_DEST, renamefile))
+    # if docs.filename == '':
+    #     return jsonify({'message': 'Foto tidak tersedia'}), 400
+    # if docs and uploadconfig.allowed_file(docs.filename):
 
-        pesantren.foto_filename = renamefile
-        db.session.commit()
+    #     # filename = secure_filename(docs.filename)
+    #     renamefile = pesantren_name+'.jpg'
+
+    #     docs.save(os.path.join(Config.UPLOADED_PHOTOS_DEST, renamefile))
+
+    #     pesantren.foto_filename = renamefile
+    #     db.session.commit()
         
-        return response.success(
-            {
-                'foto': renamefile,
-                'pesantren_id': pesantren_id
+    #     return response.success(
+    #         {
+    #             'foto': renamefile,
+    #             'pesantren_id': pesantren_id
                 
-            }, 
-            "Sukses mengupload file"
-        )
+    #         }, 
+    #         "Sukses mengupload file"
+    #     )
 
-    else:
-        return response.badRequest([],'File tidak diizinkan')
+    # else:
+    #     return response.badRequest([],'File tidak diizinkan')
     
-@blueprint.route('/pesantren/get-foto/<int:pesantren_id>', methods=['POST'])
+@blueprint.route('/pesantren/get-foto/<int:pesantren_id>', methods=['GET'])
 @cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
 def get_fotos(pesantren_id):
     pesantren = Pesantren.query.get(pesantren_id)
@@ -178,4 +197,3 @@ def get_fotos(pesantren_id):
             }, 
             "Sukses mengupload file"
         )
-
