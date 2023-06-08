@@ -5,6 +5,7 @@ Copyright (c) 2019 - present AppSeed.us
 
 # from flask_login import login_required
 #import photos from apps
+import os
 from flask import redirect, render_template, request
 from jinja2 import TemplateNotFound
 from flask_cors import cross_origin
@@ -38,7 +39,7 @@ def pesantren_detail(pesantren_id):
             return jsonify({'message': 'Pesantren updated successfully.'}), 200
         elif request.method == 'DELETE':
             #delete the photo files also
-            os.remove(os.path.join(Config.UPLOADED_PHOTOS_DEST, pesantren.foto_filename))
+            # os.remove(os.path.join(Config.UPLOADED_PHOTOS_DEST, pesantren.foto_filename))
             db.session.delete(pesantren)
             db.session.commit()
             return jsonify({'message': 'Pesantren deleted successfully.'}), 200
