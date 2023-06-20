@@ -62,6 +62,7 @@ def add_pesantren():
     pesantren = request.json['pesantren']
     yayasan = request.json['yayasan']
     pendiri = request.json['pendiri']
+    foto_filename = request.json['foto_filename']
     alamat = request.json['alamat']['alamat']
     kecamatan = request.json['alamat']['kecamatan']
     kabupaten = request.json['alamat']['kabupaten']
@@ -83,7 +84,7 @@ def add_pesantren():
     usaha = request.json['informasi_tambahan']['usaha']
     fasilitas = request.json['informasi_tambahan']['fasilitas']
 
-    new_pesantren = Pesantren(pesantren=pesantren, yayasan=yayasan, pendiri=pendiri, alamat=alamat,
+    new_pesantren = Pesantren(pesantren=pesantren, yayasan=yayasan, pendiri=pendiri, foto_filename=foto_filename, alamat=alamat,
                               kecamatan=kecamatan, kabupaten=kabupaten, gmaps=gmaps, instagram=instagram,
                               facebook=facebook, twitter=twitter, website=website, pengasuh=pengasuh, deskripsi=deskripsi)
 
@@ -132,25 +133,25 @@ def add_pesantren():
 
     return pesantren_schema.jsonify(new_pesantren)
 
-@blueprint.route('/pesantren/upload-foto', methods=['POST'])
-@cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
-def upload_fotos():
-    pesantren_id = request.form.get('pesantren_id')
-    pesantren = Pesantren.query.get(pesantren_id)
-    if 'foto' not in request.form:
-        return jsonify({'message': 'Foto tidak tersedia'}), 400
+# @blueprint.route('/pesantren/upload-foto', methods=['POST'])
+# @cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
+# def upload_fotos():
+#     pesantren_id = request.form.get('pesantren_id')
+#     pesantren = Pesantren.query.get(pesantren_id)
+#     if 'foto' not in request.form:
+#         return jsonify({'message': 'Foto tidak tersedia'}), 400
 
-    docs = request.form.get('foto')
-    pesantren.foto_filename = docs
-    db.session.commit()
-    return response.success(
-        {
-            'foto': docs,
-            'pesantren_id': pesantren_id
+#     docs = request.form.get('foto')
+#     pesantren.foto_filename = docs
+#     db.session.commit()
+#     return response.success(
+#         {
+#             'foto': docs,
+#             'pesantren_id': pesantren_id
             
-        }, 
-        "Sukses mengupload file"
-    )
+#         }, 
+#         "Sukses mengupload file"
+#     )
     # pesantren_name = pesantren.pesantren
     # if 'foto' not in request.files:
     #     return jsonify({'message': 'Foto tidak tersedia'}), 400
@@ -196,5 +197,5 @@ def get_fotos(pesantren_id):
                 'pesantren_id': pesantren_id
                 
             }, 
-            "Sukses mengupload file"
+            "FILE FOUND"
         )
