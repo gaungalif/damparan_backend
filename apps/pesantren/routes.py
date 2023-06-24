@@ -17,12 +17,13 @@ from apps.pesantren import blueprint
 from werkzeug.utils import secure_filename
 from apps.pesantren.models import *
 from apps import db
-
+from apps.home.routes import login_required
 from flask import jsonify
 
 @blueprint.route('/pesantren/<int:pesantren_id>', methods=['GET', 'PUT', 'DELETE'])
 @cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
-def pesantren_detail(pesantren_id):
+@login_required
+def pesantren_detail(pesantren_id, current_user):
     pesantren = Pesantren.query.get(pesantren_id)
 
     if pesantren:
@@ -49,7 +50,8 @@ def pesantren_detail(pesantren_id):
     
 @blueprint.route('/pesantren', methods=['GET'])
 @cross_origin(origin='*',headers=['Content-Type','Authorization'])
-def get_pesantren():
+@login_required
+def get_pesantren(current_user):
     all_pesantren = Pesantren.query.all()
     result = pesantrens_schema.dump(all_pesantren)
     return jsonify(result)
@@ -58,7 +60,8 @@ def get_pesantren():
 # Endpoint untuk Menambahkan Data Pesantren
 @blueprint.route('/pesantren', methods=['POST'])
 @cross_origin(origin='*',headers=['Content-Type','Authorization'])
-def add_pesantren():
+@login_required
+def add_pesantren(current_user):
     pesantren = request.json['pesantren']
     yayasan = request.json['yayasan']
     pendiri = request.json['pendiri']
@@ -184,7 +187,8 @@ def add_pesantren():
     
 @blueprint.route('/pesantren/get-foto/<int:pesantren_id>', methods=['GET'])
 @cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
-def get_fotos(pesantren_id):
+@login_required
+def get_fotos(pesantren_id, current_user):
     pesantren = Pesantren.query.get(pesantren_id)
     if pesantren == None:
         return response.badRequest([], 'Pesantren tidak ditemukan')

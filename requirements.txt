@@ -19,6 +19,7 @@ marshmallow==3.19.0
 marshmallow-sqlalchemy==0.29.0
 # psycopg2==2.9.3
 # psycopg2-binary==2.9.3
+PyJWT==2.6.0
 pymysql==1.0.2 
 python-dotenv==0.21.0
 SQLAlchemy==2.0.15

@@ -6,7 +6,7 @@ Copyright (c) 2019 - present AppSeed.us
 from flask import Blueprint
 
 blueprint = Blueprint(
-    'pesantren_blueprint',
+    'pesantren',
     __name__,
     url_prefix=''
 )

@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
+from apps.home.models import User
 
 from apps import db, ma
 
@@ -9,6 +10,7 @@ from apps import db, ma
 # Definisikan Model
 class Pesantren(db.Model):
     pesantren_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     pesantren = db.Column(db.String(255))
     yayasan = db.Column(db.String(255))
     pendiri = db.Column(db.String(255))
