@@ -23,7 +23,7 @@ from flask import jsonify
 @blueprint.route('/pesantren/<int:pesantren_id>', methods=['GET', 'PUT', 'DELETE'])
 @cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
 @login_required
-def pesantren_detail(pesantren_id, current_user):
+def pesantren_detail(current_user, pesantren_id):
     pesantren = Pesantren.query.get(pesantren_id)
 
     if pesantren:
@@ -56,7 +56,6 @@ def get_pesantren(current_user):
     result = pesantrens_schema.dump(all_pesantren)
     return jsonify(result)
 
-# Endpoint untuk Menambahkan Data Pesantren
 # Endpoint untuk Menambahkan Data Pesantren
 @blueprint.route('/pesantren', methods=['POST'])
 @cross_origin(origin='*',headers=['Content-Type','Authorization'])
@@ -188,7 +187,7 @@ def add_pesantren(current_user):
 @blueprint.route('/pesantren/get-foto/<int:pesantren_id>', methods=['GET'])
 @cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
 @login_required
-def get_fotos(pesantren_id, current_user):
+def get_fotos(current_user, pesantren_id):
     pesantren = Pesantren.query.get(pesantren_id)
     if pesantren == None:
         return response.badRequest([], 'Pesantren tidak ditemukan')
