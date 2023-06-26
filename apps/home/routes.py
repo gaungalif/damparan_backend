@@ -30,11 +30,11 @@ def login_required(f):
     def decorated(*args, **kwargs):
         token = None
         # jwt is passed in the request header
-        if "x-access-token" in request.headers and session.get('token'):
+        if "x-access-token" in request.headers:
             token = request.headers['x-access-token']
-            comp_token = session.get('token')
-            if token == comp_token:
-                token = comp_token
+            # comp_token = session.get('token')
+            # if token == comp_token:
+            #     token = comp_token
         # return 401 if token is not passed
         if not token:
             return jsonify({'message':'token tidak ada, silakan login'}), 401
