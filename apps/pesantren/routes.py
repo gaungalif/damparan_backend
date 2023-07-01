@@ -64,7 +64,7 @@ def add_pesantren(current_user):
     pesantren = request.json['pesantren']
     yayasan = request.json['yayasan']
     pendiri = request.json['pendiri']
-    foto_filename = request.json['foto_filename']
+    foto = request.json['foto']['file_name']
     alamat = request.json['alamat']['alamat']
     kecamatan = request.json['alamat']['kecamatan']
     kabupaten = request.json['alamat']['kabupaten']
@@ -74,7 +74,7 @@ def add_pesantren(current_user):
     twitter = request.json['media']['twitter']
     website = request.json['media']['website']
     pengasuh = request.json['pengasuh']
-    daftarpengasuh = request.json['daftarPengasuh']
+    daftarpengasuh = request.json['daftarPengasuh']['pengasuh_name']
     deskripsi = request.json['deskripsi']
     sanad = request.json['keilmuan']['sanad']
     talim = request.json['keilmuan']['talim']
@@ -86,10 +86,14 @@ def add_pesantren(current_user):
     usaha = request.json['informasi_tambahan']['usaha']
     fasilitas = request.json['informasi_tambahan']['fasilitas']
 
-    new_pesantren = Pesantren(pesantren=pesantren, yayasan=yayasan, pendiri=pendiri, foto_filename=foto_filename, alamat=alamat,
+    new_pesantren = Pesantren(pesantren=pesantren, yayasan=yayasan, pendiri=pendiri, alamat=alamat,
                               kecamatan=kecamatan, kabupaten=kabupaten, gmaps=gmaps, instagram=instagram,
                               facebook=facebook, twitter=twitter, website=website, pengasuh=pengasuh, deskripsi=deskripsi)
 
+    for file_name in foto:
+        foto_obj = Foto(file_name=file_name)
+        new_pesantren.foto.append(foto_obj)
+        
     for fasilitas_name in fasilitas:
         fasilitas_obj = Fasilitas(fasilitas_name=fasilitas_name)
         new_pesantren.fasilitas.append(fasilitas_obj)

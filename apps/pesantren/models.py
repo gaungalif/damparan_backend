@@ -25,7 +25,7 @@ class Pesantren(db.Model):
     pengasuh = db.Column(db.String(255))
     # add description withouth length limit
     deskripsi = db.Column(db.Text)
-    foto_filename = db.Column(db.String(255))
+    foto = db.relationship('Foto', backref='pesantren', cascade='all, delete')
     daftarPengasuh = db.relationship('daftarPengasuh', backref='pesantren', cascade='all, delete')
     sanad = db.relationship('Sanad', backref='pesantren', cascade='all, delete')
     talim = db.relationship('Talim', backref='pesantren', cascade='all, delete')
@@ -37,54 +37,69 @@ class Pesantren(db.Model):
     usaha = db.relationship('Usaha', backref='pesantren', cascade='all, delete')
     fasilitas = db.relationship('Fasilitas', backref='pesantren', cascade='all, delete')
 
+class Foto(db.Model):
+    __tablename__ = 'Foto'
+    foto_id = db.Column(db.Integer, primary_key=True)
+    pesantren_id = db.Column(db.Integer, db.ForeignKey('pesantren.pesantren_id'))
+    file_name = db.Column(db.String(1000))
 
 class Fasilitas(db.Model):
+    __tablename__ = 'Fasilitas'
     fasiltas_id = db.Column(db.Integer, primary_key=True)
     pesantren_id = db.Column(db.Integer, db.ForeignKey('pesantren.pesantren_id'))
     fasilitas_name = db.Column(db.String(255))
     
 class daftarPengasuh(db.Model):
+    __tablename__ = 'daftarPengasuh'
     pengasuh_id = db.Column(db.Integer, primary_key=True)
     pesantren_id = db.Column(db.Integer, db.ForeignKey('pesantren.pesantren_id'))
     pengasuh_name = db.Column(db.String(255))
-
+    
 class Sanad(db.Model):
+    __tablename__ = 'Sanad'
     sanad_id = db.Column(db.Integer, primary_key=True)
     pesantren_id = db.Column(db.Integer, db.ForeignKey('pesantren.pesantren_id'))
     sanad_name = db.Column(db.String(255))
 
 class Talim(db.Model):
+    __tablename__ = 'Talim'
     talim_id = db.Column(db.Integer, primary_key=True)
     pesantren_id = db.Column(db.Integer, db.ForeignKey('pesantren.pesantren_id'))
     talim_name = db.Column(db.String(255))
 
 class Usaha(db.Model):
+    __tablename__ = 'Usaha'
     usaha_id = db.Column(db.Integer, primary_key=True)
     usaha_name = db.Column(db.String(100))
     pesantren_id = db.Column(db.Integer, db.ForeignKey('pesantren.pesantren_id'))
 
 
 class Pendidikan(db.Model):
+    __tablename__ = 'Pendidikan'
     pendidikan_id = db.Column(db.Integer, primary_key=True)
     pesantren_id = db.Column(db.Integer, db.ForeignKey('pesantren.pesantren_id'))
     pendidikan_name = db.Column(db.String(255))
 
 class LembagaPendidikanFormal(db.Model):
+    __tablename__ = 'LembagaPendidikanFormal'
     lembaga_formal_id = db.Column(db.Integer, primary_key=True)
     pesantren_id = db.Column(db.Integer, db.ForeignKey('pesantren.pesantren_id'))
     lembaga_formal_name = db.Column(db.String(255))
 
 class LembagaPendidikanNonformal(db.Model):
+    __tablename__ = 'LembagaPendidikanNonformal'
     lembaga_nonformal_id = db.Column(db.Integer, primary_key=True)
     pesantren_id = db.Column(db.Integer, db.ForeignKey('pesantren.pesantren_id'))
     lembaga_nonformal_name = db.Column(db.String(255))
 
 class PendidikanFormal(db.Model):
+    __tablename__ = 'PendidikanFormal'
     pendidikan_formal_id = db.Column(db.Integer, primary_key=True)
     pesantren_id = db.Column(db.Integer, db.ForeignKey('pesantren.pesantren_id'))
     pendidikan_formal_name = db.Column(db.String(255))
 
 class LainLain(db.Model):
+    __tablename__ = 'LainLain'
     lainlain_id = db.Column(db.Integer, primary_key=True)
     pesantren_id = db.Column(db.Integer, db.ForeignKey('pesantren.pesantren_id'))
     lainlain_name = db.Column(db.String(255))
@@ -93,7 +108,7 @@ class LainLain(db.Model):
 
 class FotoSchema(ma.Schema):
     class Meta:
-        fields = ('foto_id', 'filename')
+        fields = ('foto_id', 'file_name')
         
 class FasilitasSchema(ma.Schema):
     class Meta:
@@ -146,10 +161,11 @@ class PesantrenSchema(ma.Schema):
     lainLain = ma.Nested(LainLainSchema, many=True)
     usaha = ma.Nested(UsahaSchema, many=True)
     fasilitas = ma.Nested(FasilitasSchema, many=True)
+    foto = ma.Nested(FotoSchema, many=True)
     class Meta:
         fields = ('pesantren_id', 'pesantren', 'yayasan', 'pendiri', 'alamat', 'kecamatan', 'kabupaten', 'gmaps',
                   'instagram', 'facebook', 'twitter', 'website', 'pengasuh', 'daftarPengasuh', 'sanad', 'talim', 'pendidikan',
-                  'lembFormal', 'lembNonFormal', 'pendFormal', 'lainLain', 'usaha', 'fasilitas', 'deskripsi', 'foto_filename')
+                  'lembFormal', 'lembNonFormal', 'pendFormal', 'lainLain', 'usaha', 'fasilitas', 'deskripsi', 'foto')
 
 pesantren_schema = PesantrenSchema()
 pesantrens_schema = PesantrenSchema(many=True)
